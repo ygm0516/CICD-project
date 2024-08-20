@@ -1,0 +1,36 @@
+server:
+  port: 8083
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: msa-info
+          uri: ${MSA_API_URL}
+          predicates:
+            - Path=/info
+          filters:
+            - RewritePath=/(?<path>.*), /$\{path}
+        - id: msa-title
+          uri: ${MSA_SD_API_URL}
+          predicates:
+            - Path=/title-info
+          filters:
+            - RewritePath=/(?<path>.*), /$\{path}
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins:
+              - "${MSA_UI_URL}"
+            allow-credentials: true
+            allowed-headers: '*'
+            allowed-methods:
+              - PUT
+              - GET
+              - POST
+              - DELETE
+              - OPTIONS
+  main:
+    web-application-type: reactive
