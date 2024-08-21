@@ -16,7 +16,7 @@ pipeline {
   stages {
     stage('Checkout Projects') {
       steps {
-        git url: 'https://github.com/ygm0516/CICD-project.git', branch: 'main'
+        git url: 'https://github.com/ygm0516/CICD-project.git', credentialsId:'ygm-token', branch: 'main'
       }
     }
 
