@@ -8,11 +8,6 @@ def projects = [
 pipeline {
   agent any
 
-  tools {
-    maven 'maven'
-  }
-
-
   stages {
     stage('Checkout Projects') {
       steps {
